@@ -20,16 +20,27 @@ function read (io, lines, callback) {
   });
 
   function each (ch, key, done) {
-    if (key && key.name == 'enter' && --lines <= 0) {
-      return done();
+    if (key && key.name == 'enter') {
+      if (--lines <= 0) {
+        return done();
+      }
     }
 
     input += ch;
+
+    if (/(^|\n)\n\n$/.test(input)) {
+      done();
+    }
   }
 }
 
 function rows (input) {
-  return input.split(/\s*\n+/).map(function (row) {
-    return row.trim();
-  });
+  return input
+    .split(/\s*\n+/)
+    .map(function (row) {
+      return row.trim();
+    })
+    .filter(function (row) {
+      return row && row.length;
+    });
 }

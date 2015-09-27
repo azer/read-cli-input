@@ -5,7 +5,7 @@ read(process.stdin, 1, function (answer) {
   print(answer);
 
   console.log("What are your most favorite 3 food ?");
-  read(3, function (answer) {
+  read(5, function (answer) {
     print(answer);
     console.log('last words before we close the program?');
     read(print);
