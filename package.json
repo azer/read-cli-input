@@ -1,6 +1,6 @@
 {
   "name": "read-cli-input",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Read user input from CLI for specified amount of lines.",
   "main": "index.js",
   "keywords": [
