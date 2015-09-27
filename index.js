@@ -2,31 +2,33 @@ var onKeyPress = require("on-key-press");
 
 module.exports = read;
 
-function read (io, lines, callback) {
-  if (arguments.length == 2) {
-    callback = lines;
-    lines = Number(io);
-    io = process.stdin;
-  } else if (arguments.length == 1) {
-    callback = io;
-    io = process.stdin;
-    lines = 1;
+function read (options, callback) {
+  if (arguments.length == 1) {
+    callback = options;
+    options = undefined;
   }
 
-  var input = '';
+  options = normalizeOptions(options);
 
-  onKeyPress(io, each, function () {
+  var input = '';
+  var lines = options.lines;
+
+  onKeyPress(options.stdin, each, function () {
     callback(rows(input));
   });
 
+  if (options.prefix) options.prefix(options.lines - lines);
+
   function each (ch, key, done) {
+    input += ch;
+
     if (key && key.name == 'enter') {
       if (--lines <= 0) {
         return done();
       }
-    }
 
-    input += ch;
+      if (options.prefix) options.prefix(options.lines - lines);
+    }
 
     if (/(^|\n)\n\n$/.test(input)) {
       done();
@@ -36,6 +38,7 @@ function read (io, lines, callback) {
 
 function rows (input) {
   return input
+    .trim()
     .split(/\s*\n+/)
     .map(function (row) {
       return row.trim();
@@ -43,4 +46,22 @@ function rows (input) {
     .filter(function (row) {
       return row && row.length;
     });
+}
+
+function normalizeOptions (options) {
+  if (!options) {
+    options = {
+      lines: 1
+    };
+  }
+
+  if (typeof options == 'number') {
+    options = {
+      lines: options
+    };
+  }
+
+  options.stdin || (options.stdin = process.stdin);
+
+  return options;
 }

@@ -1,16 +1,20 @@
 var read = require('./');
 
 console.log('what up ?');
-read(process.stdin, 1, function (answer) {
+read(1, function (answer) {
   print(answer);
 
-  console.log("What are your most favorite 3 food ?");
-  read(5, function (answer) {
+  console.log("Your 3 favorite food:");
+  read({ lines: 3, prefix: prefix }, function (answer) {
     print(answer);
     console.log('last words before we close the program?');
     read(print);
   });
 });
+
+function prefix (line) {
+  process.stdout.write('  ' + (line + 1) + '.');
+}
 
 function print (input) {
   console.log('Answer was: ', input.join(', '));

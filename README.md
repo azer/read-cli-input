@@ -21,11 +21,14 @@ read(3, function (input) {
 })
 ```
 
-By default, it reads from `process.stdin`. You can specify custom IO if you pass
-three arguments;
+By default, it reads from `process.stdin`. You can specify custom stdin, and a function to generate a prefix for multi-line inputs.
 
 ```js
-read(process.stdin, 3, console.log);
+read({ stdin: process.stdin, lines: 3, prefix: prefix }, console.log);
+
+function prefix (line) {
+  process.stdout.write(line + 1 + '.'); // It'll output "1." "2." "3." ...
+}
 ```
 
 If you'll read just one line from process.stdin, you can just pass a callback:
