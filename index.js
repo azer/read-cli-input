@@ -22,16 +22,16 @@ function read (options, callback) {
   function each (ch, key, done) {
     input += ch;
 
+    if (/(^|\n)\n\n$/.test(input)) {
+      return done();
+    }
+
     if (key && key.name == 'enter') {
       if (--lines <= 0) {
         return done();
       }
 
       if (options.prefix) options.prefix(options.lines - lines);
-    }
-
-    if (/(^|\n)\n\n$/.test(input)) {
-      done();
     }
   }
 }
