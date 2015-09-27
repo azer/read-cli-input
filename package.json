@@ -1,0 +1,21 @@
+{
+  "name": "read-cli-input",
+  "version": "0.0.0",
+  "description": "Read user input from CLI for specified amount of lines.",
+  "main": "index.js",
+  "keywords": [
+    "io",
+    "read",
+    "cli",
+    "prompt"
+  ],
+  "repository": {
+    "url": "git@github.com:azer/read-cli-input.git",
+    "type": "git"
+  },
+  "author": "azer",
+  "license": "BSD",
+  "dependencies": {
+    "on-key-press": "0.0.0"
+  }
+}
