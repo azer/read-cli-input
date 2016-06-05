@@ -16,6 +16,6 @@
   "author": "azer",
   "license": "BSD",
   "dependencies": {
-    "on-key-press": "azer/on-key-press
+    "on-key-press": "azer/on-key-press"
   }
 }
